@@ -9,8 +9,8 @@ application = Flask(__name__)
 app=application
 
 ## import ridge regresor model and standard scaler pickle
-ridge_model=pickle.load(open('C:/Users/harsh/OneDrive/Documents/Data Science & ML/Regression Project/models/ridge.pkl','rb'))
-standard_scaler=pickle.load(open('C:/Users/harsh/OneDrive/Documents/Data Science & ML/Regression Project/models\scaler.pkl','rb'))
+ridge_model=pickle.load(open('models/ridge.pkl','rb'))
+standard_scaler=pickle.load(open('models/scaler.pkl','rb'))
 
 ## Route for home page
 @app.route('/')
