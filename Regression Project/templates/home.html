@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Temperature Prediction</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            transition: background 1s ease-in-out;
+        }
+        .form-container {
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+        .fade-in {
+            animation: fadeIn 1s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        /* Helper text style */
+        .helper-text {
+            font-size: 0.75rem; /* 12px */
+            color: rgba(255, 255, 255, 0.8);
+            margin-top: 0.25rem;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-orange-400 to-rose-500 min-h-screen flex items-center justify-center p-4">
+
+    <div class="w-full max-w-4xl mx-auto bg-white/20 form-container rounded-2xl shadow-2xl p-8 fade-in">
+        
+        <div class="flex flex-col md:flex-row items-center justify-between gap-8">
+
+            <!-- Left Side: Title and Graphics -->
+            <div class="w-full md:w-1/2 text-white text-center md:text-left">
+                <div class="mb-4">
+                    <svg class="w-24 h-24 mx-auto md:mx-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" />
+                    </svg>
+                </div>
+                <h1 class="text-4xl font-bold mb-2">Temperature Prediction</h1>
+                <p class="text-lg opacity-80">Enter the weather parameters to predict the Temperature.</p>
+            </div>
+
+            <!-- Right Side: Form -->
+            <div class="w-full md:w-1/2">
+                <form id="prediction-form" class="space-y-4">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-2">
+                        <!-- FWI Input -->
+                        <div>
+                            <label for="fwi" class="block text-sm font-medium text-white">FWI</label>
+                            <input type="text" name="FWI" id="fwi" placeholder="e.g., 7.5" required class="mt-1 w-full bg-white/50 text-gray-800 placeholder-gray-600 rounded-lg py-2 px-3 focus:outline-none focus:ring-2 focus:ring-white transition duration-300">
+                            <p class="helper-text">Index: 0.0 - 31.1</p>
+                        </div>
+                        <!-- RH Input -->
+                        <div>
+                            <label for="rh" class="block text-sm font-medium text-white">RH (%)</label>
+                            <input type="text" name="RH" id="rh" placeholder="e.g., 50" required class="mt-1 w-full bg-white/50 text-gray-800 placeholder-gray-600 rounded-lg py-2 px-3 focus:outline-none focus:ring-2 focus:ring-white transition duration-300">
+                            <p class="helper-text">Humidity: 21 - 90</p>
+                        </div>
+                        <!-- Ws Input -->
+                        <div>
+                            <label for="ws" class="block text-sm font-medium text-white">Wind Speed (km/h)</label>
+                            <input type="text" name="Ws" id="ws" placeholder="e.g., 15" required class="mt-1 w-full bg-white/50 text-gray-800 placeholder-gray-600 rounded-lg py-2 px-3 focus:outline-none focus:ring-2 focus:ring-white transition duration-300">
+                            <p class="helper-text">Range: 6 - 29</p>
+                        </div>
+                        <!-- Rain Input -->
+                        <div>
+                            <label for="rain" class="block text-sm font-medium text-white">Rain (mm)</label>
+                            <input type="text" name="Rain" id="rain" placeholder="e.g., 0.5" required class="mt-1 w-full bg-white/50 text-gray-800 placeholder-gray-600 rounded-lg py-2 px-3 focus:outline-none focus:ring-2 focus:ring-white transition duration-300">
+                            <p class="helper-text">Range: 0.0 - 16.8</p>
+                        </div>
+                        <!-- FFMC Input -->
+                        <div>
+                            <label for="ffmc" class="block text-sm font-medium text-white">FFMC</label>
+                            <input type="text" name="FFMC" id="ffmc" placeholder="e.g., 80.5" required class="mt-1 w-full bg-white/50 text-gray-800 placeholder-gray-600 rounded-lg py-2 px-3 focus:outline-none focus:ring-2 focus:ring-white transition duration-300">
+                            <p class="helper-text">Index: 28.6 - 92.5</p>
+                        </div>
+                        <!-- DMC Input -->
+                        <div>
+                            <label for="dmc" class="block text-sm font-medium text-white">DMC</label>
+                            <input type="text" name="DMC" id="dmc" placeholder="e.g., 15.5" required class="mt-1 w-full bg-white/50 text-gray-800 placeholder-gray-600 rounded-lg py-2 px-3 focus:outline-none focus:ring-2 focus:ring-white transition duration-300">
+                            <p class="helper-text">Index: 1.1 - 65.9</p>
+                        </div>
+                        <!-- ISI Input -->
+                        <div>
+                            <label for="isi" class="block text-sm font-medium text-white">ISI</label>
+                            <input type="text" name="ISI" id="isi" placeholder="e.g., 5.2" required class="mt-1 w-full bg-white/50 text-gray-800 placeholder-gray-600 rounded-lg py-2 px-3 focus:outline-none focus:ring-2 focus:ring-white transition duration-300">
+                            <p class="helper-text">Index: 0.0 - 18.5</p>
+                        </div>
+                        <!-- Classes Input -->
+                        <div>
+                            <label for="classes" class="block text-sm font-medium text-white">Classes</label>
+                            <input type="text" name="Classes" id="classes" placeholder="0 or 1" required class="mt-1 w-full bg-white/50 text-gray-800 placeholder-gray-600 rounded-lg py-2 px-3 focus:outline-none focus:ring-2 focus:ring-white transition duration-300">
+                            <p class="helper-text">1 for fire, 0 for not fire</p>
+                        </div>
+                    </div>
+                     <!-- Region Input -->
+                     <div class="pt-2">
+                        <label for="region" class="block text-sm font-medium text-white">Region</label>
+                        <input type="text" name="Region" id="region" placeholder="0 or 1" required class="mt-1 w-full bg-white/50 text-gray-800 placeholder-gray-600 rounded-lg py-2 px-3 focus:outline-none focus:ring-2 focus:ring-white transition duration-300">
+                        <p class="helper-text">0 for Bejaia, 1 for Sidi-Bel Abbes</p>
+                    </div>
+                    
+                    <button type="submit" id="predict-button" class="w-full !mt-6 bg-rose-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-rose-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-rose-500 transition duration-300 transform hover:scale-105 flex items-center justify-center">
+                        <span id="button-text">Predict</span>
+                        <svg id="loading-spinner" class="animate-spin -ml-1 mr-3 h-5 w-5 text-white hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                    </button>
+                </form>
+                
+                <div id="result-container" class="mt-6 text-center hidden">
+                    <h2 class="text-2xl font-semibold text-white">
+                        The Temperature prediction is: <span id="result-value" class="font-bold text-3xl text-yellow-300"></span>
+                    </h2>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const form = document.getElementById('prediction-form');
+        const resultContainer = document.getElementById('result-container');
+        const resultValue = document.getElementById('result-value');
+        const predictButton = document.getElementById('predict-button');
+        const buttonText = document.getElementById('button-text');
+        const loadingSpinner = document.getElementById('loading-spinner');
+        const body = document.body;
+
+        form.addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent actual form submission
+
+            // Show loading state
+            buttonText.textContent = 'Predicting...';
+            loadingSpinner.classList.remove('hidden');
+            predictButton.disabled = true;
+            resultContainer.classList.add('hidden');
+
+            // Simulate an API call delay
+            setTimeout(() => {
+                // This is where you would typically fetch the result from your backend.
+                // For this demo, we'll generate a random number between 15 and 40.
+                const tempValue = parseFloat((15 + Math.random() * 25).toFixed(1));
+                const mockResult = tempValue + " °C";
+
+                // Display the result
+                resultValue.textContent = mockResult;
+                resultContainer.classList.remove('hidden');
+                resultContainer.classList.add('fade-in');
+
+                // --- Change background based on temperature ---
+                const coolGradient = ['from-sky-400', 'to-indigo-600'];
+                const hotGradient = ['from-orange-400', 'to-rose-500'];
+
+                // Remove previous gradient classes to avoid conflicts
+                body.classList.remove(...coolGradient, ...hotGradient);
+
+                // Add new gradient based on temperature threshold (e.g., 24°C)
+                if (tempValue < 24) { // Cool temperature
+                    body.classList.add(...coolGradient);
+                } else { // Hot temperature
+                    body.classList.add(...hotGradient);
+                }
+                // --- End of background change logic ---
+
+                // Restore button state
+                buttonText.textContent = 'Predict';
+                loadingSpinner.classList.add('hidden');
+                predictButton.disabled = false;
+
+            }, 2000); // 2-second delay
+        });
+    </script>
+
+</body>
+</html>
